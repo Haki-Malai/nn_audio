@@ -1,8 +1,18 @@
-from os import path
+import os
 from pydub import AudioSegment
-# files                                                                         
-src = "2 Sinners - What's Been Going On.mp3"
-dst = "test.wav"
-# convert wav to mp3                                                            
-sound = AudioSegment.from_mp3(src)
-sound.export(dst, format="wav")
+import re
+
+path  = '../dataset-techno/mp3/'
+errors = 0
+complete = 0
+destination = '../dataset-techno/wav/'                                 
+for filename in os.listdir(path):
+    try:
+        new_name = filename.replace('.mp3', '.wav')
+        sound = AudioSegment.from_mp3(path+filename)
+        sound.export(destination+new_name, format="wav")
+        complete = complete + 1
+        print((complete/len(os.listdir(path)))*100, '%')
+    except:
+        errors = errors + 1
+print("Script complete with ", errors, "errors")
