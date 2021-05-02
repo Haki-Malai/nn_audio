@@ -1,3 +1,0 @@
-clear all; close all;
- 
-[y, ]= audioread ("..\\dataset\\wav\\Yes Baby! (Jus Deelax Remix).wav");

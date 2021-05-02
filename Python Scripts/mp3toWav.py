@@ -2,10 +2,10 @@ import os
 from pydub import AudioSegment
 import re
 
-path  = '../dataset-techno/mp3/'
+path  = '../dataset/mp3/False/'
 errors = 0
 complete = 0
-destination = '../dataset-techno/wav/'                                 
+destination = '../dataset/wav/False/'                                 
 for filename in os.listdir(path):
     try:
         new_name = filename.replace('.mp3', '.wav')
