@@ -8,10 +8,10 @@ for i=1:length(randomTracks)
     try
         [y, fs]=audioread (strcat("..\\dataset\\wav\\True\\", path(randomTracks(1,i)).name));
         y=imnoise(y, 'gaussian', 0.01, 0.025);
-        audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
+        save (strcat("..\\dataset\\wav\\False\\", 'GaussianNoise', int2str(i), '.wav'), 'y', '-ASCII');
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -23,10 +23,10 @@ for i=1:length(randomTracks)
         Mean=0.00;
         Var=0.005;
         y=imnoise(y,'poisson');
-        audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
+        save (strcat("..\\dataset\\wav\\False\\", 'PoissonNoise', int2str(i), '.wav'), 'y', '-ASCII');
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -38,10 +38,10 @@ for i=1:length(randomTracks)
         Mean=0.00;
         Var=0.005;
         y=imnoise(y,'salt & pepper', 0.025);
-        audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
+        save (strcat("..\\dataset\\wav\\False\\", 'SaltPepperNoise', int2str(i), '.wav'), 'y', '-ASCII');
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -53,10 +53,10 @@ for i=1:length(randomTracks)
         Mean=0.00;
         Var=0.005;
         y=imnoise(y,'salt & pepper', 0.005);
-        audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
+        save (strcat("..\\dataset\\wav\\False\\", 'SaltPepper0005Noise', int2str(i), '.wav'), 'y', '-ASCII');
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -70,7 +70,7 @@ for i=1:length(randomTracks)
         audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -85,7 +85,7 @@ for i=1:length(randomTracks)
         audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -100,7 +100,7 @@ for i=1:length(randomTracks)
         audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end
@@ -115,7 +115,7 @@ for i=1:length(randomTracks)
         audiowrite(strcat("..\\dataset\\wav\\False\\", 'SNR11Noise', int2str(i), '.wav'), y, 44100);
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
-        errors = errors + 1
+        errors = erros + 1
     end
     i
 end

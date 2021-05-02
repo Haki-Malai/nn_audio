@@ -8,7 +8,7 @@ for i=1:1%length(randomTracks)
         %y = y + randn(size(y))*0.075;
         y = awgn(y,11,'measured');
         sound(y,fs)
-        %save (strcat("..\\dataset\\txt\\False\\", 'RandomNoise', int2str(i), '.txt'), 'y', '-ASCII');
+        %save (strcat("..\\dataset\\txt\\False\\", 'RandomNoise', int2str(i), '.wav'), 'y', '-ASCII');
     catch
         strcat("Couldn't write song ", erase(path(randomTracks(1,i)).name, '.wav'))
     end
