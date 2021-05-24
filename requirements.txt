@@ -1,0 +1,5 @@
+tensorflow==2.4.0
+librosa==0.8.0
+click==8.0.0
+numpy==1.19.5
+scikit_learn==0.24.2
