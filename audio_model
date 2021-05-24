@@ -178,7 +178,9 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
     history_dict = history.history
     history_dict.keys()
 
-        
+    # Save the model
+    model.save(model_name)
+
 if __name__ == "__main__":
     
     create_model()
