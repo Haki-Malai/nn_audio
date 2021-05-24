@@ -1,4 +1,4 @@
-# nn-audio
+# nn_audio
 ## Audio Classifier
 - Takes a dataset in the form below as input
 
@@ -46,4 +46,4 @@ dataset___
      - **--test_size** (default=0.3)
      - **--epochs** (default=50)
 
-# A lot of code is based on [this](https://www.youtube.com/channel/UCZPFjMe1uRSirmSpznqvJfQ) channel's tutorial, make sure you subscribe to him if you are interested in Machine Learning and Audio compinations
+## A lot of code is based on [this](https://www.youtube.com/channel/UCZPFjMe1uRSirmSpznqvJfQ) channel's tutorial, make sure you subscribe to him if you are interested in Machine Learning and Audio compinations
