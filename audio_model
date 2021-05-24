@@ -6,6 +6,9 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import tensorflow.keras as keras
 import click
+from tensorflow.keras import layers
+from tensorflow.python.keras.backend import dropout
+from tensorflow.python.keras.layers.core import Dropout
 from tensorflow.python.keras.utils.generic_utils import default
 
 @click.command()
@@ -20,7 +23,9 @@ from tensorflow.python.keras.utils.generic_utils import default
 @click.option("--model_name", default="model", help="Desired name for the model, \'model\' if none given")
 @click.option("--test_size", default=0.3, help="Desired test size, 0.3 if none given")
 @click.option("--epochs", default=50, help="Amound of epochs to train the model on")
-def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length, from_json, json_save, output_json, json_path, model_name, test_size, epochs, num_mfcc=13, n_fft=2048, hop_length=512, num_segments=5):
+@click.option("--activation", default="relu", help="Activation function to use")
+@click.option("--dropout", default=True, type=bool, help="Dropout layers in the training?")
+def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length, from_json, json_save, output_json, json_path, model_name, test_size, epochs, activation, dropout, num_mfcc=13, n_fft=2048, hop_length=512, num_segments=5):
     """Extracts MFCCs from music dataset and saves them into a json file along witgh genre labels.
         :param dataset_dir (str): Path to dataset
         :param num_mfcc (int): Number of coefficients to extract
@@ -105,24 +110,53 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
     x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=test_size)
     
 
-    # Build network topology
-    model = keras.Sequential([
+    if not dropout:
+        # Build network topology
+        model = keras.Sequential([
 
-        # Input layer
-        keras.layers.Flatten(input_shape=(x.shape[1], x.shape[2])),
+            # Input layer
+            keras.layers.Flatten(input_shape=(x.shape[1], x.shape[2])),
 
-        # 1st dense layer
-        keras.layers.Dense(512, activation='relu'),
+            # 1st dense layer
+            keras.layers.Dense(512, activation=activation),
 
-        # 2nd dense layer
-        keras.layers.Dense(256, activation='relu'),
+            # 2nd dense layer
+            keras.layers.Dense(256, activation=activation),
 
-        # 3rd dense layer
-        keras.layers.Dense(64, activation='relu'),
+            # 3rd dense layer
+            keras.layers.Dense(64, activation=activation),
 
-        # output layer
-        keras.layers.Dense(10, activation='softmax')
-    ])
+            # Output layer
+            keras.layers.Dense(10, activation='softmax')
+        ])
+    else:
+
+        model = keras.Sequential([
+
+            # Input layer
+            keras.layers.Flatten(input_shape=(x.shape[1], x.shape[2])),
+
+            # 1st dense layer
+            keras.layers.Dense(512, activation=activation),
+
+            # 1st dropout layer 
+            keras.layers.Dropout(0.2),
+
+            # 2nd dense layer
+            keras.layers.Dense(128, activation=activation),
+            
+            # 2nd dropout layer
+            keras.layers.Dropout(0.2),
+
+            # 3rd dense layer
+            keras.layers.Dense(64, activation=activation),
+            
+            # 3rd dropout layers
+            keras.layers.Dropout(0.2),
+
+            # Output layer
+            keras.layers.Dense(10, activation='softmax')
+        ])
 
     # Compile model
     optimiser = keras.optimizers.Adam(learning_rate=0.0001)
