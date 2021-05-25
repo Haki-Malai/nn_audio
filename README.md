@@ -53,4 +53,4 @@ dataset___
      - **--dropout** (default='True')
      - **--num_segments** (default=5)
 
-## A lot of code is based on [this](https://www.youtube.com/channel/UCZPFjMe1uRSirmSpznqvJfQ) channel's tutorial, make sure you subscribe to him if you are interested in Machine Learning and Audio compinations
+## A lot of data-preperation code and ml training is based on [this](https://www.youtube.com/channel/UCZPFjMe1uRSirmSpznqvJfQ) channel's tutorial, make sure you subscribe to him if you are interested in Machine Learning and Audio compinations
