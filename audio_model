@@ -12,7 +12,7 @@ from tensorflow.keras import layers
 @click.option("--dataset_dir", help="Dataset directory")
 @click.option("--sample_rate", default=44100, help="Frequency of files, all must be have the same")
 @click.option("--min_track_duration", default=10, help="Shortest duration of all files, needed to cut everything to its length")
-@click.option("--min_array_length", default=0, help="Optional: give smallest signal array length. Otherwise, calcuated on its own")
+@click.option("--min_array_length", default=1000000, help="Optional: give smallest signal array length. Otherwise, calcuated on its own")
 @click.option("--from_json", default=False, type=bool, help="Load data from a json file that was loaded with this script for the purpose of saving time")
 @click.option("--json_save", default=False, type=bool, help="Save data generated for the training to a json file in order the get faster to another training")
 @click.option("--output_json", default="data.json", help="Where to output the json")
@@ -22,7 +22,8 @@ from tensorflow.keras import layers
 @click.option("--epochs", default=50, help="Amound of epochs to train the model on")
 @click.option("--activation", default="relu", help="Activation function to use")
 @click.option("--dropout", default=True, type=bool, help="Dropout layers in the training?")
-def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length, from_json, json_save, output_json, json_path, model_name, test_size, epochs, activation, dropout, num_mfcc=13, n_fft=2048, hop_length=512, num_segments=5):
+@click.option("--num_segments", default=5, type=int)
+def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length, from_json, json_save, output_json, json_path, model_name, test_size, epochs, activation, dropout, num_segments, num_mfcc=13, n_fft=2048, hop_length=512):
     """Extracts MFCCs from music dataset and saves them into a json file along witgh genre labels.
         :param dataset_dir (str): Path to dataset
         :param num_mfcc (int): Number of coefficients to extract
@@ -57,6 +58,7 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
                     # Load audio file
                     file_path = os.path.join(dirpath, f)
                     signal, sample_rate = librosa.load(file_path, sr=sample_rate)
+                    signal = signal[min_array_length:]
 
                     # Process all segments of audio file
                     for d in range(num_segments):
@@ -96,10 +98,22 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
             data = json.load(fp)
         mfcc_data = data["mfcc"]
         labels = data["labels"]
+    
+    # Make testing data
+    mfcc_test = []
+    labels_test = []
+    for i in range(int(len(mfcc_data)/10)):
+        mfcc_test.append(mfcc_data[i])
+        mfcc_data.remove(mfcc_data[i])
+
+        labels_test.append(labels[i])
+        labels.remove(labels[i])
 
     # Convert lists to numpy arrays
     x = np.array(mfcc_data)
     y = np.array(labels)
+    x_test = np.array(mfcc_test)
+    y_test = np.array(labels_test)
 
     print("Data succesfully loaded!")
 
@@ -167,7 +181,7 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
     history = model.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=32, epochs=epochs)
 
     # Evaluate the model
-    test_loss, test_acc = model.evaluate(x_val, y_val)
+    test_loss, test_acc = model.evaluate(x_test, y_test)
     print('Test Loss: {}'.format(test_loss))
     print('Test Accuracy: {}'.format(test_acc))
 
