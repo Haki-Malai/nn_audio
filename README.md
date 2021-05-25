@@ -26,14 +26,17 @@ dataset___
 
 ### Instalation
   - **Linux**:
-    - `git clone https://github.com/Haki-Malai/nn-audio`
-    - `cd nn-audio`
-    - `sudo bash install.sh` (Adds 'audio_model' as command. If it does not work try running 'source ~\.profile')
+    - `$ git clone https://github.com/Haki-Malai/nn-audio`
+    - `$ cd nn-audio`
+    - `$ sudo bash install.sh` (Adds 'audio_model' as command. If it does not work try running 'source ~\.profile')
   - **Windows**:
     - Rename audio_model to audio_model.py
 
 ### Usage
-  - `audio_model --dataset_dir=dataset ` (For example. dataset_dir is pwd for default but i don't think it is able to run this way as the script will read itself in the directory )
+  - **Linux**:
+     - `$ audio_model --dataset_dir=dataset ` (For example. dataset_dir is pwd for default but i don't think it is able to run this way as the script will read itself in the directory )
+  - **Windows**:
+     - `py audio_model.py --dataset_dir=dataset `
   - All options:
      - **--sample_rate** (default=44100)
      - **--min_track_duration** (default=10)
@@ -45,5 +48,8 @@ dataset___
      - **--model_name** (default="model")
      - **--test_size** (default=0.3)
      - **--epochs** (default=50)
+     - **--activation** (default='relu')
+     - **--dropout** (default='True')
+     - **--num_segments** (default=5)
 
 ## A lot of code is based on [this](https://www.youtube.com/channel/UCZPFjMe1uRSirmSpznqvJfQ) channel's tutorial, make sure you subscribe to him if you are interested in Machine Learning and Audio compinations
