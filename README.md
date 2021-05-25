@@ -37,7 +37,7 @@ dataset___
   - **Linux**:
      - `$ audio_model --dataset_dir=dataset ` (For example. dataset_dir is pwd for default but i don't think it is able to run this way as the script will read itself in the directory )
   - **Windows**:
-     - `py audio_model.py --dataset_dir=dataset `
+     - `$ py audio_model.py --dataset_dir=dataset `
   - All options:
      - **--sample_rate** (default=44100)
      - **--min_track_duration** (default=10)
