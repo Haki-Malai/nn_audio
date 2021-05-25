@@ -41,7 +41,7 @@ dataset___
   - All options:
      - **--sample_rate** (default=44100)
      - **--min_track_duration** (default=10)
-     - **--min_array_length** (default=0)
+     - **--min_array_length** (default=1000000)
      - **--from_json** (default=False)
      - **--json_save** (default=False)
      - **--output_json** (default="data.json")
