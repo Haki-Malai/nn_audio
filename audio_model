@@ -182,8 +182,8 @@ def create_model(dataset_dir, sample_rate, min_track_duration, min_array_length,
 
     # Evaluate the model
     test_loss, test_acc = model.evaluate(x_test, y_test)
-    print('Test Loss: {}'.format(test_loss))
-    print('Test Accuracy: {}'.format(test_acc))
+    print('\nTest Loss: {}'.format(test_loss))
+    print('\nTest Accuracy: {}'.format(test_acc))
 
     # History object from .fit()
     history_dict = history.history
