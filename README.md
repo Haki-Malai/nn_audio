@@ -1,6 +1,6 @@
 # nn_audio
 ## Audio Classifier
-- Takes a dataset in the form below as input
+- Takes a name of a dataset in the form below as input
 
 ```
 dataset___
