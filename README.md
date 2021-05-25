@@ -17,7 +17,8 @@ dataset___
           │   └── file33.wav
                  ...
  ```
- - Uses the class names (i.e. class#1) as label
+ - Uses the class names (i.e. class#1) as labels names
+ - Uses 10% of the data for testing and prints evaluation results.
  - Returns an keras model and (optional) the data in a json file.
 
 ### Requirements
